@@ -1,9 +1,17 @@
 import { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  Button,
+  FlatList,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function App() {
   const [task, setTask] = useState('');
+  const [tasks, setTasks] = useState([]);
 
   return (
     <SafeAreaView style={styles.appContainer}>
@@ -17,9 +25,24 @@ export default function App() {
           onChangeText={setTask}
         />
 
-        <Button title="Add Task" onPress={() => console.log(task)} />
+        <Button
+          title="Add Task"
+          onPress={() => {
+            if (task.trim().length === 0) return;
+            setTasks([...tasks, { id: Date.now().toString(), text: task }]);
+            setTask('');
+          }}
+        />
 
-        {/* List area will go here */}
+        <FlatList
+          data={tasks}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <View style={styles.taskItem}>
+              <Text style={styles.taskText}>{item.text}</Text>
+            </View>
+          )}
+        />
       </View>
     </SafeAreaView>
   );
@@ -46,6 +69,15 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 8,
     marginBottom: 15,
+    fontSize: 16,
+  },
+  taskItem: {
+    marginVertical: 5,
+    backgroundColor: 'white',
+    padding: 15,
+    borderRadius: 8,
+  },
+  taskText: {
     fontSize: 16,
   },
 });
