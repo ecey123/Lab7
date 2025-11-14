@@ -1,12 +1,24 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { useState } from 'react';
+import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function App() {
+  const [task, setTask] = useState('');
+
   return (
     <SafeAreaView style={styles.appContainer}>
       <View style={styles.contentContainer}>
         <Text style={styles.title}>My Todo List</Text>
-        {/* Input area will go here */}
+
+        <TextInput
+          style={styles.input}
+          placeholder="Enter a task..."
+          value={task}
+          onChangeText={setTask}
+        />
+
+        <Button title="Add Task" onPress={() => console.log(task)} />
+
         {/* List area will go here */}
       </View>
     </SafeAreaView>
@@ -28,5 +40,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 20,
     textAlign: 'center',
+  },
+  input: {
+    backgroundColor: 'white',
+    padding: 15,
+    borderRadius: 8,
+    marginBottom: 15,
+    fontSize: 16,
   },
 });
