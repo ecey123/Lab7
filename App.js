@@ -40,9 +40,13 @@ export default function App() {
           data={tasks}
           keyExtractor={(item) => item.id}
          renderItem={({ item }) => <TodoItem text={item.text} />}
-
-      
         />
+        {tasks.length === 0 && (
+  <Text style={styles.emptyText}>
+    No tasks yet. Add a task above.
+  </Text>
+)}
+
       </View>
     </SafeAreaView>
   );
@@ -71,5 +75,10 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     fontSize: 16,
   },
-  
+  emptyText: {
+  textAlign: 'center',
+  marginTop: 20,
+  color: 'gray',
+},
+
 });
