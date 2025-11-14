@@ -1,3 +1,5 @@
+import TodoItem from './components/TodoItem';
+
 import { useState } from 'react';
 import {
   StyleSheet,
@@ -37,11 +39,9 @@ export default function App() {
         <FlatList
           data={tasks}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <View style={styles.taskItem}>
-              <Text style={styles.taskText}>{item.text}</Text>
-            </View>
-          )}
+         renderItem={({ item }) => <TodoItem text={item.text} />}
+
+      
         />
       </View>
     </SafeAreaView>
@@ -71,13 +71,5 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     fontSize: 16,
   },
-  taskItem: {
-    marginVertical: 5,
-    backgroundColor: 'white',
-    padding: 15,
-    borderRadius: 8,
-  },
-  taskText: {
-    fontSize: 16,
-  },
+  
 });
